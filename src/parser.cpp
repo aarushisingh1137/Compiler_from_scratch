@@ -17,7 +17,7 @@ Expr* Parser::parse()
 
         return new NumberExpr(value);
     } */
-    return expression();
+    return assignment();
 }
 
 Token Parser::current()
@@ -28,6 +28,11 @@ Token Parser::current()
 void Parser::advance()
 {
     m_current++;
+}
+
+Token Parser::peek()
+{
+    return m_tokens[m_current + 1];
 }
 
 Expr* Parser::factor()
@@ -55,6 +60,12 @@ Expr* Parser::factor()
         }
 
         return expr;
+    }
+
+    if (token.type == TokenType::Identifier)
+    {
+        advance();
+        return new VariableExpr(token.value);
     }
 
     return nullptr;
@@ -104,4 +115,28 @@ Expr* Parser::expression()
     }
 
     return left;
+}
+
+Expr* Parser::assignment()
+{
+    if (
+        current().type == TokenType::Identifier &&
+        peek().type == TokenType::Assign)
+    {
+        std::string variableName =
+            current().value;
+
+        advance(); // consume identifier
+
+        advance(); // consume '='
+
+        Expr* value =
+            expression();
+
+        return new AssignmentExpr(
+            variableName,
+            value);
+    }
+
+    return expression();
 }

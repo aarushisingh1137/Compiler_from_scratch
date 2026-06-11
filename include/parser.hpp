@@ -20,4 +20,7 @@ private:
     Expr* factor();
     Expr* term();
     Expr* expression();
+
+    Token peek();
+    Expr* assignment();
 };

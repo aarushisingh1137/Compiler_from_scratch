@@ -1,5 +1,6 @@
 #pragma once
 #include "token.hpp"
+#include <string>
 
 struct Expr
 {
@@ -29,6 +30,30 @@ struct BinaryExpr : Expr
         : left(lhs),
           right(rhs),
           op(operation)
+    {
+    }
+};
+
+struct VariableExpr : Expr
+{
+    std::string name;
+
+    VariableExpr(const std::string& variableName)
+        : name(variableName)
+    {
+    }
+};
+
+struct AssignmentExpr : Expr
+{
+    std::string name;
+    Expr* value;
+
+    AssignmentExpr(
+        const std::string& variableName,
+        Expr* expression)
+        : name(variableName),
+          value(expression)
     {
     }
 };

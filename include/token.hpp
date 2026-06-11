@@ -10,6 +10,9 @@ enum class TokenType
     Slash,
     LeftParen,
     RightParen,
+    Identifier,
+    Assign,
+    Semicolon,
     End
 };
 

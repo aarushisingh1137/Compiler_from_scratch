@@ -10,6 +10,19 @@ void printAST(Expr* expr)
         return;
     }
 
+    if (auto assignment = dynamic_cast<AssignmentExpr*>(expr))
+    {
+        std::cout << "("
+                << assignment->name
+                << " = ";
+
+        printAST(assignment->value);
+
+        std::cout << ")";
+
+        return;
+    }
+
     if (auto binary =
         dynamic_cast<BinaryExpr*>(expr))
     {
@@ -32,5 +45,12 @@ void printAST(Expr* expr)
         printAST(binary->right);
 
         std::cout << ")";
+    }
+
+     if (auto variable =
+        dynamic_cast<VariableExpr*>(expr))
+    {
+        std::cout << variable->name;
+        return;
     }
 }

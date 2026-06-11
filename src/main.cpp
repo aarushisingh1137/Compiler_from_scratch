@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-  Lexer lexer("(2+3)*4");
+  Lexer lexer("x = 5 + 3");
     cout << "AaruLang Compiler started" << endl;
     auto tokens = lexer.tokenize();
 
@@ -21,6 +21,9 @@ int main()
         else if (token.type == TokenType::Slash) std::cout << "Slash"<<endl;
         else if (token.type == TokenType::LeftParen) std::cout << "LeftParen"<<endl;
         else if (token.type == TokenType::RightParen) std::cout << "RightParen"<<endl;
+        else if (token.type == TokenType::Identifier) std::cout << "Idemtifier"<<endl;
+        else if (token.type == TokenType::Assign) std::cout << "Assign"<<endl;
+        else if (token.type == TokenType::Semicolon) std::cout << "Semicolon"<<endl;
         else if (token.type == TokenType::End)  std::cout << "End"<<endl;
     }
 
@@ -30,7 +33,8 @@ int main()
     printAST(expr);
     cout << endl;
 
-    int result = evaluate(expr);
+    unordered_map<string,int> symbols;
+    int result = evaluate(expr,symbols);
 
     cout << "Result = "<< result<< endl;
     

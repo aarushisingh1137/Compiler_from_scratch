@@ -104,6 +104,50 @@ vector<Token> Lexer::tokenize()
         continue;
     }
 
+    if (isalpha(c) || c == '_')
+    {
+      string identifier;
+
+      while (i< m_source.length() &&  (isalnum(m_source[i]) || m_source[i] == '_'))
+        {
+            identifier += m_source[i];
+            i++;
+        }
+
+        tokens.push_back(
+        {
+            TokenType::Identifier,
+            identifier
+        });
+
+        continue;
+    }
+
+    if (c == '=')
+    {
+      tokens.push_back(
+      {
+        TokenType::Assign,
+        "="
+      });
+
+      i++;
+      continue;
+    }
+
+    if (c == ';')
+    {
+      tokens.push_back(
+      {
+        TokenType::Semicolon,
+        ";"
+      });
+
+      i++;
+      continue;
+    }
+
+
   }
 
     tokens.push_back({
