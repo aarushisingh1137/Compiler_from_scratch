@@ -4,6 +4,9 @@ enum class TokenType
 {
     Number,
     Plus,
+    Minus,
+    Star,
+    Slash,
     End
 };
 
