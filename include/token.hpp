@@ -1,3 +1,4 @@
+#include <string>
 #pragma once
 
 enum class TokenType
@@ -7,6 +8,8 @@ enum class TokenType
     Minus,
     Star,
     Slash,
+    LeftParen,
+    RightParen,
     End
 };
 

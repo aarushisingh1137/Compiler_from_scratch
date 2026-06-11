@@ -82,6 +82,28 @@ vector<Token> Lexer::tokenize()
       continue;
     }
 
+    if (c == '(')
+    {
+        tokens.push_back({
+            TokenType::LeftParen,
+            "("
+        });
+
+        i++;
+        continue;
+    }
+
+    if (c == ')')
+    {
+        tokens.push_back({
+            TokenType::RightParen,
+            ")"
+        });
+
+        i++;
+        continue;
+    }
+
   }
 
     tokens.push_back({
