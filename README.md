@@ -5,6 +5,9 @@ g++ src/main.cpp src/lexer.cpp src/parser.cpp src/ast_printer.cpp src/evaluator.
 ./program
 echo $?
 
+<img width="1432" height="601" alt="image" src="https://github.com/user-attachments/assets/511055aa-8afe-4ad6-950b-f9f4b383c7c3" />
+
+
 
 # AaruLang Compiler
 
