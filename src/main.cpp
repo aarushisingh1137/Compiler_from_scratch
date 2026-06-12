@@ -3,11 +3,44 @@
 #include "parser.hpp"
 #include "ast_printer.hpp"
 #include "evaluator.hpp"
+#include "codegen.hpp"
+#include <fstream>
+#include <sstream>
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-  Lexer lexer("x = 5 + 3");
+  if (argc != 2)
+    {
+    cout
+        << "Usage: ./compiler <file.aaru>"
+        << endl;
+
+    return 1;
+    }
+
+  ifstream file(argv[1]);
+
+  if (!file)
+  {
+    cout
+        << "Could not open file."
+        << endl;
+
+    return 1;
+  }
+  stringstream buffer;
+  buffer << file.rdbuf();
+  string source = buffer.str();
+
+/* Lexer lexer(
+    "x=5;"
+    "x+2;"
+); */
+  cout << "SOURCE START\n";
+cout << source << endl;
+cout << "SOURCE END\n";
+  Lexer lexer(source);
     cout << "AaruLang Compiler started" << endl;
     auto tokens = lexer.tokenize();
 
@@ -37,6 +70,29 @@ int main()
     int result = evaluate(expr,symbols);
 
     cout << "Result = "<< result<< endl;
+
+    /* std::unordered_map<std::string, int> codegenSymbols;
+    int nextOffset = -8;
+    cout
+    << generateCode(
+        expr,
+        codegenSymbols,
+        nextOffset)
+    << endl; */
     
+    //cout<< generateProgram(expr)<< endl;
+
+    std::ofstream out("output.s");
+    out << generateProgram(expr);
+    out.close();
+
+    int buildResult = system("g++ -no-pie output.s -o program");
+    if (buildResult != 0)
+    {
+      cout<< "Assembly compilation failed."<< endl;
+      return 1;
+    }
+    cout<< "Executable generated successfully."<< endl;
+
     return 0;
 }

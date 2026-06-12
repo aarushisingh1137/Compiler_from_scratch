@@ -1,6 +1,7 @@
 #pragma once
 #include "token.hpp"
 #include <string>
+#include <vector>
 
 struct Expr
 {
@@ -56,4 +57,9 @@ struct AssignmentExpr : Expr
           value(expression)
     {
     }
+};
+
+struct Program : Expr
+{
+    std::vector<Expr*> statements;
 };

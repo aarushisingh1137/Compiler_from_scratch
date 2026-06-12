@@ -1,5 +1,6 @@
 #include <iostream>
 #include "lexer.hpp"
+#include <cctype>
 using namespace std;
 
 Lexer::Lexer(const string& source)
@@ -76,11 +77,11 @@ vector<Token> Lexer::tokenize()
       continue;
     }
 
-    if(c==' ')
-    {
+    if (isspace(c))
+  {
       i++;
       continue;
-    }
+  }
 
     if (c == '(')
     {

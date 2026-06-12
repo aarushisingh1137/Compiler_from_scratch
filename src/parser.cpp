@@ -7,17 +7,39 @@ Parser::Parser(const std::vector<Token>& tokens)
     m_current = 0;
 }
 
+/* Expr* Parser::parse()
+{
+   Token token = m_tokens[m_current];
+
+    //if (token.type == TokenType::Number)
+    //{
+      //  int value = std::stoi(token.value);
+
+        //return new NumberExpr(value);
+    } //
+    return assignment();
+} */
+
 Expr* Parser::parse()
 {
-  /* Token token = m_tokens[m_current];
+    Program* program = new Program();
 
-    if (token.type == TokenType::Number)
+    while (
+        current().type !=
+        TokenType::End)
     {
-        int value = std::stoi(token.value);
+        program->statements.push_back(
+            assignment());
 
-        return new NumberExpr(value);
-    } */
-    return assignment();
+        if (
+            current().type ==
+            TokenType::Semicolon)
+        {
+            advance();
+        }
+    }
+
+    return program;
 }
 
 Token Parser::current()

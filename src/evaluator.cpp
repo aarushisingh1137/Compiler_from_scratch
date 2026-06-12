@@ -3,6 +3,22 @@ using namespace std;
 
 int evaluate(Expr* expr, unordered_map<string,int>&symbols)
 {
+    if (auto program =
+    dynamic_cast<Program*>(expr))
+    {
+        int result = 0;
+
+        for (Expr* statement :
+         program->statements)
+        {
+            result =
+            evaluate(
+                statement,
+                symbols);
+        }
+
+        return result;
+    }
     if (auto number =
         dynamic_cast<NumberExpr*>(expr))
     {

@@ -3,6 +3,17 @@
 
 void printAST(Expr* expr)
 {
+    if (auto program =
+    dynamic_cast<Program*>(expr))
+    {
+    for (Expr* statement : program->statements)
+    {
+        printAST(statement);
+        std::cout << std::endl;
+    }
+    return;
+    }
+
     if (auto number =
         dynamic_cast<NumberExpr*>(expr))
     {
